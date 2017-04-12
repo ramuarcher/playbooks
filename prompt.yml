@@ -1,0 +1,22 @@
+---
+ - name: "Test Prompt playbook"
+   hosts: vm
+   gather_facts: yes
+   become: yes
+   
+#   vars: 
+#     - from: "camelot"
+   
+   vars_prompt: 
+     - name: "password"
+       prompt: "enter your password"
+#       encrypt: "md5_crypt"
+#       confirm: yes
+#       salt_size: 7
+   
+   tasks: 
+     - mysql_user:
+          login_user: root
+          login_password: "{{ password}}"
+          name: ramu
+          state: absent 
