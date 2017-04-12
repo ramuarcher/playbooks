@@ -2,4 +2,5 @@
 #ansible-vm-test ansible_host=192.168.122.42
 #ansible-vm-test2 ansible_host=192.168.122.122
 #192.168.122.231
-10.1.200.11
+#10.1.200.11
+192.168.122.50

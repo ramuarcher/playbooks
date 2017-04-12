@@ -8,8 +8,10 @@
 #     - from: "camelot"
    
    vars_prompt: 
-     - name: "password"
-       prompt: "enter your password"
+     - name: "root_password"
+       prompt: "enter your root password"
+     - name: "user_password"
+       prompt: "Enter your user password"
 #       encrypt: "md5_crypt"
 #       confirm: yes
 #       salt_size: 7
@@ -17,6 +19,8 @@
    tasks: 
      - mysql_user:
           login_user: root
-          login_password: "{{ password}}"
+          login_password: "{{ root_password }}"
           name: ramu
-          state: absent 
+          password: "{{ user_password }}"
+          priv: '*.*:ALL,GRANT'
+          state: present 
