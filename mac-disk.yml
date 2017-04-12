@@ -1,0 +1,14 @@
+---
+ - name: "Get Mac and Disk usage playbook"
+   hosts: cyberlib
+   gather_facts: yes
+   become: yes
+   remote_user: ubuntu
+  
+   tasks: 
+     - name: "Get MAC Address"
+       debug: msg= "{{ ansible_default_ipv4.macaddress }}"
+     - name: "Get info about Disk usage"
+       command: df -h 
+       register: disk_usage
+     - debug: var=disk_usage.stdout_lines

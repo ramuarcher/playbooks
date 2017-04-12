@@ -1,0 +1,18 @@
+---
+ - name: Test Delegate
+   hosts: vm
+   gather_facts: yes
+   remote_user: ramu
+   become: yes
+   
+   tasks:
+    - name: install byobu on ansible-vm-test
+      hosts: ansible-vm-test
+      apt: update_cache=yes
+      apt: name=byobu state=absent
+#      delegate_to: ansible-vm-test
+    - name: install htop on srv2
+      hosts: ansible-vm-test2
+      apt: update_cache=yes
+      apt: name=htop state=absent
+#      delegate_to: ansible-vm-test2

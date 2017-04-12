@@ -1,0 +1,14 @@
+--- 
+ guests: 
+   - name: centos6
+     url: http://centos.osuosl.org/6/os/x86_64/
+     cpu: 1
+     mem: 512
+     virt_type: kvm
+     virt_hypervisor: hvm
+     os:
+       type: linux
+       variant: rhel6
+     disk:
+       size: 5
+       path: /var/lib/libvirt/images

@@ -1,0 +1,15 @@
+---
+ - name: with_item as a input
+   hosts: vm
+   gather_facts: False
+   become: yes
+  
+   tasks: 
+     - name: ls
+       shell: ls /home/ramu/my-ansible/test
+       register: ls 
+     - debug: var=ls.stdout_lines
+     
+#     - name: execute
+       shell: ./{{ item }}
+       with_items: ls.stdout_lines    

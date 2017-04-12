@@ -1,0 +1,35 @@
+---
+  - name: "VM Creation"
+    hosts: kvm
+    gather_facts: yes
+    remote_user: ramu
+    become: yes
+  
+    vars_files: 
+      - guests.yml
+
+    tasks: 
+      - name: "start vm"
+        virt: 
+          name: test-machine
+          command: list_vms
+          uri: 'qemu:///system'
+        register: list_vms
+      - debug: var=list_vms 
+      
+#      - name: create vm
+#        command: virt-install -n {{item.name}}
+#                 -r {{ item.mem }}
+#                 --vcpus {{ item.cpu }}
+#                 --location {{ item.url }}
+#                 --os-type {{ item.os.type }}
+#                 --os-variant {{ item.os.variant }}
+#                --network network=virbr0
+#                 --graphics vnc
+#                 --{{item.virt_hypervisor}}
+#                 --virt-type {{ item.virt_type }}
+#                 --disk size={{item.disk.size}},path={{item.disk.path}}/{{item.name}}.img
+#                 --noautoconsole
+#        when: item.name not in virt_vms.list_vms
+#        with_items: guests
+

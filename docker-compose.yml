@@ -1,0 +1,19 @@
+---
+ - name: docker-compose with ansible
+   hosts: vm
+ 
+ - name: "launch mysql container"
+   docker_container: 
+     name: db
+     image: mariadb
+     env: 
+       MYSQL_ROOT_PASSWORD: admin
+     
+ - name: "Launch wordpress container"
+   docker_container:
+     name: wordpress
+     image: wordpress
+     links:
+       - db:mysql
+     ports:
+       - 8080:80 

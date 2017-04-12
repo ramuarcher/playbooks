@@ -1,0 +1,40 @@
+---
+ - name: Own-Cloud installation
+   hosts: admin_staff 
+   gather_facts: yes
+   become: yes
+   
+    
+   tasks:
+     - name: "Update to precise to trusty mirror Incase of Ubuntu_14.04"
+       replace: dest=/etc/apt/sources.list regexp='precise' replace='trusty' backup=yes
+       when: ansible_lsb.codename == "precise"
+     - name: "Download owcloud Repo"
+       apt_repository: repo='deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' state=present 
+       when: ansible_lsb.codename == "precise"  
+     - name: "Download ownlcoud repo key"
+       apt_key: url='http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_14.04/Release.key' state=present
+       when: ansible_lsb.codename == "precise"
+     - name: "Update apt"
+       apt: update_cache=yes
+       when: ansible_lsb.codename == "precise"  
+     - name: "Install Owncloud-client"
+       apt: name=owncloud-client  state=present force=yes  
+       when: ansible_lsb.codename == "precise"  
+
+     - name: "Download owcloud Repo"
+       apt_repository: 
+         repo: 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_{{ ansible_distribution_version }}/ /' 
+         state: present
+       when: ansible_lsb.codename in ["xenial","trusty"]
+     - name: "Download ownlcoud repo key"
+       apt_key: 
+         url: 'http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_{{ ansible_distribution_version }}/Release.key' 
+         state: present
+       when: ansible_lsb.codename in ["xenial","trusty"]
+     - name: "Update apt"
+       apt: update_cache=yes
+       when: ansible_lsb.codename in ["xenial","trusty"]
+     - name: "Install Owncloud-client"
+       apt: name=owncloud-client  state=present force=yes
+       when: ansible_lsb.codename in ["xenial","trusty"]
