@@ -2,7 +2,8 @@
 This project about testing basic ansible modules with playbook examples
 
 ansible execution 
- ````ansible-plabook -i hosts playbook.yml -s -K -k````
+ 
+````ansible-plabook -i hosts playbook.yml -s -K -k````
 
 debug.yml playbook execution
 
