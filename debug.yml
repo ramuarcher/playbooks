@@ -1,0 +1,13 @@
+---
+ - name: "Test Debug playbook"
+   hosts: vm
+   strategy: debug
+   become: yes
+   gather_facts: no
+   
+   vars: 
+     var1: value1
+
+   tasks: 
+     - name: wrong varibale
+       ping: data={{ wrong_var }}  
